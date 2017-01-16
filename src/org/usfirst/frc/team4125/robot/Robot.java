@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4125.robot;
 
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
@@ -18,7 +19,8 @@ public class Robot extends IterativeRobot {
 	public static boolean selected = true;
     Joystick controller;
     //Joystick rightStick;// set to ID 1 in DriverStation
-    Talon talon1, talon2, talon3, talon4, talon5, talon6, shooter;
+    TalonSRX l1, l2, l3, r1, r2, r3;
+    Talon shooter;
 //    AnalogGyro gyro;
     SPI gyro;
     double value;
@@ -28,12 +30,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		controller = new Joystick(0);
-        talon1 = new Talon(1);
-        talon2 = new Talon(2);
-        talon3 = new Talon(3);
-        talon4 = new Talon(4);
-        talon5 = new Talon(5);
-        talon6 = new Talon(6);
+        l1 = new TalonSRX(5);
+        l2 = new TalonSRX(1);
+        l3 = new TalonSRX(3);
+        r1 = new TalonSRX(4);
+        r2 = new TalonSRX(2);
+        r3 = new TalonSRX(0);
         shooter = new Talon(7);
         gyro = new SPI(Port.kOnboardCS0);
 //        ultraSonic = new Ultrasonic(7, 8);
@@ -44,45 +46,45 @@ public class Robot extends IterativeRobot {
 	 * value is assigned from the error between the setpoint and the gyro angle.
 	 */
 	public void teleopInit() {
-    	talon1.set(0);
-    	talon2.set(0);
-    	talon3.set(0);
-    	talon4.set(0);
-		talon5.set(0);
-		talon6.set(0);
+    	l1.set(0);
+    	l2.set(0);
+    	l3.set(0);
+    	r1.set(0);
+		r2.set(0);
+		r3.set(0);
 		
 	}
 	
 	@Override
 	public void teleopPeriodic() {
 		if(controller.getRawAxis(0) > 0.1){
-        	talon1.set(controller.getRawAxis(1) - controller.getRawAxis(0));
-        	talon2.set(controller.getRawAxis(1) - controller.getRawAxis(0));
-        	talon3.set(controller.getRawAxis(1) - controller.getRawAxis(0));
-        	talon4.set(controller.getRawAxis(1) + controller.getRawAxis(0));
-        	talon5.set(controller.getRawAxis(1) + controller.getRawAxis(0));
-        	talon6.set(controller.getRawAxis(1) + controller.getRawAxis(0));
+        	l1.set(controller.getRawAxis(1) - controller.getRawAxis(0));
+        	l2.set(controller.getRawAxis(1) - controller.getRawAxis(0));
+        	l3.set(controller.getRawAxis(1) - controller.getRawAxis(0));
+        	r1.set(controller.getRawAxis(1) + controller.getRawAxis(0));
+        	r2.set(controller.getRawAxis(1) + controller.getRawAxis(0));
+        	r3.set(controller.getRawAxis(1) + controller.getRawAxis(0));
     	}else if(controller.getRawAxis(0) < -0.1){
-        	talon1.set(controller.getRawAxis(1) - controller.getRawAxis(0));
-        	talon2.set(controller.getRawAxis(1) - controller.getRawAxis(0));
-        	talon3.set(controller.getRawAxis(1) - controller.getRawAxis(0));
-        	talon4.set(controller.getRawAxis(1) + controller.getRawAxis(0));
-        	talon5.set(controller.getRawAxis(1) + controller.getRawAxis(0));
-        	talon6.set(controller.getRawAxis(1) + controller.getRawAxis(0));
+        	l1.set(controller.getRawAxis(1) - controller.getRawAxis(0));
+        	l2.set(controller.getRawAxis(1) - controller.getRawAxis(0));
+        	l3.set(controller.getRawAxis(1) - controller.getRawAxis(0));
+        	r1.set(controller.getRawAxis(1) + controller.getRawAxis(0));
+        	r2.set(controller.getRawAxis(1) + controller.getRawAxis(0));
+        	r3.set(controller.getRawAxis(1) + controller.getRawAxis(0));
     	}else if(controller.getRawAxis(1) > 0.1 || controller.getRawAxis(1) < -0.1){
-    		talon1.set(controller.getRawAxis(1));
-    		talon2.set(controller.getRawAxis(1));
-    		talon3.set(controller.getRawAxis(1));
-    		talon4.set(controller.getRawAxis(1));
-    		talon5.set(controller.getRawAxis(1));
-    		talon6.set(controller.getRawAxis(1));
+    		l1.set(controller.getRawAxis(1));
+    		l2.set(controller.getRawAxis(1));
+    		l3.set(controller.getRawAxis(1));
+    		r1.set(controller.getRawAxis(1));
+    		r2.set(controller.getRawAxis(1));
+    		r3.set(controller.getRawAxis(1));
     	}else {
-    		talon1.set(0);
-    		talon2.set(0);
-    		talon3.set(0);
-    		talon4.set(0);
-    		talon5.set(0);
-    		talon6.set(0);
+    		l1.set(0);
+    		l2.set(0);
+    		l3.set(0);
+    		r1.set(0);
+    		r2.set(0);
+    		r3.set(0);
     	}
 		
 	}
