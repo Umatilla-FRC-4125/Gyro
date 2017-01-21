@@ -2,10 +2,8 @@ package org.usfirst.frc.team4125.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.TalonSRX;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * backwards while the gyro is used for direction keeping.
  */
 public class Robot extends IterativeRobot {
-	RobotDrive bot;
 	public ADXRS450_Gyro gyro;
 	public SmartDashboard dashboard = new SmartDashboard();
 	//public static GyroBase gyro;
@@ -32,8 +29,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotInit() {
-		bot = new RobotDrive(l1, l2, r1, r2);
-		bot.setExpiration(0.1);
 		gyro = new ADXRS450_Gyro();
 		controller = new Joystick(0);
         l1 = new TalonSRX(5);
@@ -48,23 +43,19 @@ public class Robot extends IterativeRobot {
 
 
 public void autonomousInit() {
-	gyro.calibrate();
 	gyro.reset();
-	l1.set(0);
-	l2.set(0);
-	l3.set(0);
-	r1.set(0);
-	r2.set(0);
-	r3.set(0);
 	
 	
 	}
 
 public void autonomousPeriodic() {
 	double angle = gyro.getAngle();
-	bot.drive(-1.0, -angle*Kp);
-	Timer.delay(0.004);
-	bot.drive(0.0, 0.0);
+	l1.set(-.5);
+	l2.set(-.5);
+	l3.set(-.5);
+	r1.set(-angle*Kp);
+	r2.set(-angle*Kp);
+	r3.set(-angle*Kp);
 	}
 
 	/**
